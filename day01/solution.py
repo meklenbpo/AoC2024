@@ -24,10 +24,31 @@ def distance_between_lists(l1: List[int], l2: List[int]) -> int:
     return sum(distances)
 
 
+def similarity_score(l1: List[int], l2: List[int]) -> int:
+    """Compute similarity score between two lists."""
+    counter = {}
+    for el in l2:
+        if el in counter:
+            counter[el] += 1
+        else:
+            counter[el] = 1
+    score = 0
+    for el in l1:
+        score += el * counter.get(el, 0)
+    return score
+
+
 def main() -> int:
-    l1, l2 = load_input('day01/input_main.tsv')
-    distance = distance_between_lists(l1, l2)
-    print(distance)
+    l1, l2 = load_input('day01/input_test.tsv')
+    l3, l4 = load_input('day01/input_main.tsv')
+    distance_test = distance_between_lists(l1, l2)
+    distance_main = distance_between_lists(l3, l4)
+    print(f'Distance Test: {distance_test}')
+    print(f'Distance Main: {distance_main}')
+    score_test = similarity_score(l1, l2)
+    score_main = similarity_score(l3, l4)
+    print(f'Similarity Score Test: {score_test}')
+    print(f'Similarity Score Main: {score_main}')
     return 0
 
 
